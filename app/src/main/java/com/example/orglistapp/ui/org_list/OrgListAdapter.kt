@@ -7,8 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.orglistapp.R
 import com.example.orglistapp.model.entities.OrganizationDTO
+import com.example.orglistapp.utils.BASE_URL
 
 
 class OrgListAdapter(private var onItemClickListener: OnItemClickListener<OrganizationDTO>?) :
@@ -42,8 +44,12 @@ class OrgListAdapter(private var onItemClickListener: OnItemClickListener<Organi
     inner class OrgListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(data: OrganizationDTO) {
             with(itemView) {
-                findViewById<ImageView>(R.id.iv_logo).load(data.img)
-                findViewById<TextView>(R.id.tv_id).text = data.id
+                findViewById<ImageView>(R.id.iv_logo).load(BASE_URL.plus(data.img)) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_no_photo_vector)
+                    transformations(CircleCropTransformation())
+                }
+                findViewById<TextView>(R.id.tv_id).text = "id = ${data.id}"
                 findViewById<TextView>(R.id.tv_name).text = data.name
             }
             itemView.setOnClickListener { onItemClickListener?.onClick(data) }

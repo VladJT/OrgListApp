@@ -17,7 +17,7 @@ class OrgListFragment : Fragment() {
     private var _binding: FragmentOrgListBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter = OrgListAdapter(object : OnItemClickListener<OrganizationDTO> {
+    private val orgListAdapter = OrgListAdapter(object : OnItemClickListener<OrganizationDTO> {
         override fun onClick(data: OrganizationDTO) {
             snackBar("${data.id}")
             // showPictureInFullMode(data.imgSrc)
@@ -50,7 +50,7 @@ class OrgListFragment : Fragment() {
     private fun initRecView() {
         binding.recViewOrg.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            this.adapter = adapter
+            this.adapter = orgListAdapter
         }
     }
 
@@ -58,14 +58,14 @@ class OrgListFragment : Fragment() {
         when (appState) {
             is AppState.Success -> {
                 binding.loadingFrame.visibility = View.GONE
-                appState.data?.let { adapter.setData(it) }
+                appState.data?.let { orgListAdapter.setData(it) }
             }
             is AppState.Loading -> {
                 binding.loadingFrame.visibility = View.VISIBLE
             }
             is AppState.Error -> {
                 binding.loadingFrame.visibility = View.GONE
-                adapter.setData(listOf())
+                orgListAdapter.setData(listOf())
                 snackBar(appState.error.message ?: "")
             }
         }

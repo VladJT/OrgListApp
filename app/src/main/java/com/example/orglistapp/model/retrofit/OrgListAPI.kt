@@ -5,6 +5,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface OrgListAPI {
-    @GET("")
+    @GET("test.php")
     fun getOrgList(): Call<List<OrganizationDTO>>
 }

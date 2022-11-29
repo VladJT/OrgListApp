@@ -15,12 +15,12 @@ class OrgListViewModel(
         MutableLiveData(),
     private val retrofitImpl: OrgListRepository = OrgListRepoRetrofitImpl()
 ) : ViewModel() {
-
     fun getLiveData(): LiveData<AppState<List<OrganizationDTO>>> {
         return liveData
     }
 
     fun loadData() {
+        liveData.postValue(AppState.Loading(null))
         retrofitImpl.getOrgList(callback)
     }
 
