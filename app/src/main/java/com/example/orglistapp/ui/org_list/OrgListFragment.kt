@@ -9,7 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.orglistapp.databinding.FragmentOrgListBinding
 import com.example.orglistapp.model.domain.AppState
-import com.example.orglistapp.model.entities.OrganizationDTO
+import com.example.orglistapp.model.entities.Organization
+import com.example.orglistapp.ui.main.MainActivity
 import com.example.orglistapp.utils.snackBar
 import com.example.orglistapp.viewmodel.OrgListViewModel
 
@@ -17,10 +18,9 @@ class OrgListFragment : Fragment() {
     private var _binding: FragmentOrgListBinding? = null
     private val binding get() = _binding!!
 
-    private val orgListAdapter = OrgListAdapter(object : OnItemClickListener<OrganizationDTO> {
-        override fun onClick(data: OrganizationDTO) {
-            snackBar("${data.id}")
-            // showPictureInFullMode(data.imgSrc)
+    private val orgListAdapter = OrgListAdapter(object : OnItemClickListener<Organization> {
+        override fun onClick(data: Organization) {
+            (requireActivity() as MainActivity).showOrgDetailsFragment(data.id)
         }
     })
 
@@ -44,7 +44,6 @@ class OrgListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecView()
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
-        viewModel.loadData()
     }
 
     private fun initRecView() {
@@ -54,7 +53,7 @@ class OrgListFragment : Fragment() {
         }
     }
 
-    private fun renderData(appState: AppState<List<OrganizationDTO>>) {
+    private fun renderData(appState: AppState<List<Organization>>) {
         when (appState) {
             is AppState.Success -> {
                 binding.loadingFrame.visibility = View.GONE
@@ -73,6 +72,8 @@ class OrgListFragment : Fragment() {
 
     override fun onDestroy() {
         _binding = null
+        orgListAdapter.removeListener()
         super.onDestroy()
     }
+
 }

@@ -10,7 +10,6 @@
         android:id="@+id/loading_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.7"
         android:background="@color/white"
         android:visibility="gone">
 

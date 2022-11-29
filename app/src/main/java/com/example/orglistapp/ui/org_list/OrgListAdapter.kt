@@ -9,16 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.orglistapp.R
-import com.example.orglistapp.model.entities.OrganizationDTO
+import com.example.orglistapp.model.entities.Organization
 import com.example.orglistapp.utils.BASE_URL
 
 
-class OrgListAdapter(private var onItemClickListener: OnItemClickListener<OrganizationDTO>?) :
+class OrgListAdapter(private var onItemClickListener: OnItemClickListener<Organization>?) :
     RecyclerView.Adapter<OrgListAdapter.OrgListViewHolder>() {
 
-    private var data: List<OrganizationDTO> = listOf()
+    private var data: List<Organization> = listOf()
 
-    fun setData(data: List<OrganizationDTO>) {
+    fun setData(data: List<Organization>) {
         this.data = data
         this.notifyDataSetChanged()
     }
@@ -33,16 +33,12 @@ class OrgListAdapter(private var onItemClickListener: OnItemClickListener<Organi
         return OrgListViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: OrgListViewHolder, position: Int) {
-        holder.bind(data[position])
-    }
+    override fun onBindViewHolder(holder: OrgListViewHolder, position: Int) = holder.bind(data[position])
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount(): Int = data.size
 
     inner class OrgListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(data: OrganizationDTO) {
+        fun bind(data: Organization) {
             with(itemView) {
                 findViewById<ImageView>(R.id.iv_logo).load(BASE_URL.plus(data.img)) {
                     crossfade(true)

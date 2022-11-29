@@ -1,4 +1,4 @@
-package com.example.orglistapp.model.retrofit
+package com.example.orglistapp.utils
 
 interface CommonCallback<T> {
     fun onSuccess(data: T)

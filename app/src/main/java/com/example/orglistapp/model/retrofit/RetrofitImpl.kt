@@ -1,5 +1,6 @@
 package com.example.orglistapp.model.retrofit
 
+import com.example.orglistapp.utils.CommonCallback
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

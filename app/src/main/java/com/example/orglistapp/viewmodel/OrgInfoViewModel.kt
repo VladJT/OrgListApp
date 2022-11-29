@@ -4,28 +4,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.orglistapp.model.domain.AppState
-import com.example.orglistapp.model.entities.Organization
+import com.example.orglistapp.model.entities.OrganizationInfo
+import com.example.orglistapp.model.retrofit.OrgInfoRepo
+import com.example.orglistapp.model.retrofit.OrgInfoRepoRetrofitImpl
 import com.example.orglistapp.utils.CommonCallback
-import com.example.orglistapp.model.retrofit.OrgListRepoRetrofitImpl
-import com.example.orglistapp.model.retrofit.OrgListRepo
 import com.example.orglistapp.utils.postValue
 
-class OrgListViewModel() : ViewModel() {
-    private val liveData: LiveData<AppState<List<Organization>>> =  MutableLiveData()
-    private val repo: OrgListRepo = OrgListRepoRetrofitImpl()
+class OrgInfoViewModel(private val org_id: String) : ViewModel() {
+    private val liveData: LiveData<AppState<OrganizationInfo>> = MutableLiveData()
+    private val repo: OrgInfoRepo = OrgInfoRepoRetrofitImpl()
 
-    fun getLiveData(): LiveData<AppState<List<Organization>>> {
+    fun getLiveData(): LiveData<AppState<OrganizationInfo>> {
         if (liveData.value == null) loadData()
         return liveData
     }
 
     private fun loadData() {
         liveData.postValue(AppState.Loading(null))
-        repo.getOrgList(callback)
+        repo.getOrgInfo(org_id, callback)
     }
 
-    private val callback = object : CommonCallback<List<Organization>> {
-        override fun onSuccess(data: List<Organization>) {
+    private val callback = object : CommonCallback<OrganizationInfo> {
+        override fun onSuccess(data: OrganizationInfo) {
             liveData.postValue(AppState.Success(data))
         }
 
