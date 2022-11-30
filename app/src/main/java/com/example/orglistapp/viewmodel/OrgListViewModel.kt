@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.orglistapp.model.domain.AppState
 import com.example.orglistapp.model.entities.Organization
-import com.example.orglistapp.utils.CommonCallback
-import com.example.orglistapp.model.retrofit.OrgListRepoRetrofitImpl
 import com.example.orglistapp.model.retrofit.OrgListRepo
+import com.example.orglistapp.model.retrofit.OrgListRepoRetrofitImpl
+import com.example.orglistapp.utils.CommonCallback
 import com.example.orglistapp.utils.postValue
 
-class OrgListViewModel() : ViewModel() {
-    private val liveData: LiveData<AppState<List<Organization>>> =  MutableLiveData()
+class OrgListViewModel : ViewModel() {
+    private val liveData: LiveData<AppState<List<Organization>>> = MutableLiveData()
     private val repo: OrgListRepo = OrgListRepoRetrofitImpl()
 
     fun getLiveData(): LiveData<AppState<List<Organization>>> {

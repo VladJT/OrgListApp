@@ -33,7 +33,8 @@ class OrgListAdapter(private var onItemClickListener: OnItemClickListener<Organi
         return OrgListViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: OrgListViewHolder, position: Int) = holder.bind(data[position])
+    override fun onBindViewHolder(holder: OrgListViewHolder, position: Int) =
+        holder.bind(data[position])
 
     override fun getItemCount(): Int = data.size
 

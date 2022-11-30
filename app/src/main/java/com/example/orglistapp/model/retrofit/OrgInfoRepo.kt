@@ -5,5 +5,5 @@ import com.example.orglistapp.utils.CommonCallback
 
 
 interface OrgInfoRepo {
-    fun getOrgInfo(org_id:String, callback: CommonCallback<OrganizationInfo>)
+    fun getOrgInfo(org_id: String, callback: CommonCallback<OrganizationInfo>)
 }
